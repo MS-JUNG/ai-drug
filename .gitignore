@@ -1,0 +1,5 @@
+## admet ignore files
+/regressiondata.py
+prac/
+regression_model/
+classification_model/
