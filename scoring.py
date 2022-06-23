@@ -1,3 +1,5 @@
+
+from sympy import N
 from pychem.pychem import PyChem2d, PyChem3d
 import pandas as pd 
 from rdkit import Chem , DataStructs
@@ -6,6 +8,7 @@ import string
 from pychem import bcut
 from sklearn.externals import joblib
 import numpy as np
+
 
 from rdkit.Chem import MACCSkeys
 # smiles = pd.read_csv('smiles.csv').iloc[:, 0]
@@ -159,22 +162,51 @@ def predict_all(smiles):
 
 
     # model load 
-    CL_regression = joblib.load('C:/Users/pc/Desktop/admet_predictor/regression_model/CL/CL_Model.pkl')
-    Caco_regresion = joblib.load('C:/Users/pc/Desktop/admet_predictor/regression_model/caco2/caco2_Model.pkl')
-    CYP3A4 =  joblib.load('C:/Users/pc/Desktop/admet_predictor/classification_model/CYP3A4-inhibitor/CYP_inhibitor_3A4_SVC_ecfp4_model.pkl')
-    hia = joblib.load('C:/Users/pc/Desktop/admet_predictor/classification_model/HIA/model_0.pkl')            
-    BBB = joblib.load('C:/Users/pc/Desktop/admet_predictor/classification_model/BBB/BBB_RF_ecfp2_model.pkl')
-    Pgp = joblib.load('C:/Users/pc/Desktop/admet_predictor/classification_model/Pgp-inhibitor/PGP_inhibitor_SVC_ecfp4_model.pkl')
-    Herg = joblib.load('C:/Users/pc/Desktop/admet_predictor/classification_model/heRG/herg_model.pkl')
-    return hia.predict(maccs),Caco_regresion.predict(caco), BBB.predict(ecfp), Pgp.predict(ecfp),CYP3A4.predict(ecfp),CL_regression.predict(cl),Herg.predict(herg)
+    CL_regression = joblib.load('C:/Users/lukas/Desktop/drug/asd/regression_model/CL/CL_Model.pkl')
+    Caco_regresion = joblib.load('C:/Users/lukas/Desktop/drug/asd/regression_model/caco2/caco2_Model.pkl')
+    CYP3A4 =  joblib.load('C:/Users/lukas/Desktop/drug/asd/classification_model/CYP3A4-inhibitor/CYP_inhibitor_3A4_SVC_ecfp4_model.pkl')
+    hia = joblib.load('C:/Users/lukas/Desktop/drug/asd/classification_model/HIA/model_0.pkl')            
+    BBB = joblib.load('C:/Users/lukas/Desktop/drug/asd/classification_model/BBB/BBB_RF_ecfp2_model.pkl')
+    Pgp = joblib.load('C:/Users/lukas/Desktop/drug/asd/classification_model/Pgp-inhibitor/PGP_inhibitor_SVC_ecfp4_model.pkl')
+    Herg = joblib.load('C:/Users/lukas/Desktop/drug/asd/classification_model/heRG/herg_model.pkl')
+
+    print("HIA predict :",     hia.predict(maccs))
+    print("BBB predict",       BBB.predict(ecfp))
+    print("Pgp predict : ",    Pgp.predict(ecfp))
+    print("CYP3A4 predict: ",  CYP3A4.predict(ecfp))
+    print("Herg predict :" ,   Herg.predict(herg) )
+    k = Herg.predict(herg)
+    
+    print("Caco_regression :", Caco_regresion.predict(caco))    
+    print("CL_regression :",   CL_regression.predict(cl))
+    smile = pd.read_csv('smiles.csv')
+    print(smile)
+    print("ECFP4:" , ecfp[0])    
+    print("MACCSkeys", maccs[0])
+    
+    return None
 
 
 if __name__ == "__main__":
+  
+    # list =  [i for i in smile['smile']]
 
 
-    print(predict_all('C:/Users/pc/Desktop/ADMET_final/smiles.csv'))
+#     fig, ax =plt.subplots(1,1)
+#     data=[[1,2,3],
+#         [5,6,7],
+#         [8,9,10]]
+#     column_labels=[x for x in range(smile[1])]
+#     ax.axis('tight')
+#     ax.axis('off')
+# ax.table(cellText=data,colLabels=column_labels,loc="center")
 
+# plt.show()
+  
+    print(predict_all('C:/Users/lukas/Desktop/drug/asd/smiles.csv'))
+   
+    
+ 
 
 # print(joblib.load('C:/Users/pc/Desktop/admet_predictor/regression_model/LABEL/caco2_Label.pkl'))
 
-print('3')
